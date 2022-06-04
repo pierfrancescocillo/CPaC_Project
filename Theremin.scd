@@ -9,7 +9,7 @@ SynthDef(\theremin, {
 	amp = \amp.kr(0,1.1);
 	env = EnvGen.ar(Env.asr(atk,1,rel,crv),1);
 	synth = SinOsc.ar(freq);
-	Out.ar(0,synth*env*amp);
+	if(freq!=0,{Out.ar(0,synth*env*amp)},{Out.ar(0,0)});
 }).add;
 )
 (
@@ -17,9 +17,12 @@ OSCdef(\ciao,{
 	arg msg;
 	~synth.set(\freq, msg[1].asFloat);
 	~synth.set(\amp, msg[2].asFloat);
+	msg.postln;
 },"/ciao");
 )
 
 n = NetAddr("127.0.0.1",57120);
 
 ~synth=Synth(\theremin);
+
+n.sendMsg('/ciao',0, 0.8);
