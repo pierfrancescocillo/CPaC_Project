@@ -10,9 +10,9 @@ Capture cam;
 
 color VoltrackColor; 
 color FreqtrackColor;
-float thresholdVol = 110;
+float thresholdVol = 115;
 float thresholdFreq = 175;
-float distThreshold = 50;
+float distThreshold = 5;
 float C3=130.81;
 float C6=1046.5;
 float MaxVol=1.0;
@@ -37,14 +37,15 @@ void setup() {
   //COLOR TRACK PART
   size(1024, 600);
   //fullScreen();
-  String[] cams = Capture.list();
+ /* String[] cams = Capture.list();
   if(cams.length==0){
     println("No cameras= (");
     exit();}
     println("Avaiable cameras:");
     for(int i=0; i<cams.length;i++){
       println(i, cams[i]);}
-  cam= new Capture(this, cams[0]);
+  cam= new Capture(this, cams[0]);*/
+  cam=new Capture(this,width,height,30);
   cam.start();
   VoltrackColor = color(50,205,50);
   //VoltrackColor = color(0,0,255);
@@ -53,7 +54,6 @@ void setup() {
   oscP5= new OscP5(this,57120);
   myRemoteLocation= new NetAddress("127.0.0.1", 57120);
   C3pix=(int)(cam.width*cam.height/512);
-  //println(C3pix+"blbl" + cam.width + "hjh" + cam.height);
   C6pix=(int)(cam.width*cam.height/51.2);
   println(C3pix + "blbl" + C6pix);
   MaxVolPix=(float)(cam.height*0.1);
@@ -97,11 +97,11 @@ one=false;
       float g1 = green(currentColor);
       float b1 = blue(currentColor);
 
-      if (distSq(r1, g1, b1, rV, gV, bV) < thresholdVol*thresholdVol) {
+      if (dist(r1, g1, b1, rV, gV, bV) < thresholdVol) {
         Belong(x, y, VolRegion);
       }
       
-   if (distSq(r1, g1, b1, rF, gF, bF) < thresholdFreq*thresholdFreq) {
+   if (dist(r1, g1, b1, rF, gF, bF) < thresholdFreq) {
        Belong(x, y, FreqRegion); 
    }
       }
@@ -109,64 +109,32 @@ one=false;
 
     float Vol=0;
     for (Region r : VolRegion){
-    if ((r.pixs.size() > 500)) {
-          r.avgx = r.avgx / r.pixs.size();
-    r.avgy = r.avgy / r.pixs.size();
-    //println(r.avgx +"blblb"+ r.avgy);
-    r.show(VoltrackColor, cam);
-    if((r.avgy>MaxVolPix)&&(r.avgy<=MinVolPix)){
-    Vol=(r.avgy-MinVolPix)/(MaxVolPix-MinVolPix)*(MaxVol-MinVol)+MinVol;
-    }
-    else {
-      Vol=0;
-    }
-    //println(Vol);
-    /*
-    
-    fill(VoltrackColor);
-    strokeWeight(4.0);
-    stroke(0);
-    ellipse(r.avgx, r.avgy, 24, 24);
-    */
-/*
-  OscMessage myMessage1 = new OscMessage("/Vol");
-  myMessage1.add(Vol);
-  oscP5.send(myMessage1,myRemoteLocation);
-  */
-    }
+       if ((r.pixs.size() > 500)) {
+           r.avgy = r.avgy / r.pixs.size();
+           r.show(VoltrackColor, cam);
+           if((r.avgy>MaxVolPix)&&(r.avgy<=MinVolPix)){
+              Vol=(r.avgy-MinVolPix)/(MaxVolPix-MinVolPix)*(MaxVol-MinVol)+MinVol;
+           }
+           else {
+           Vol=0;
+           }
+        }
     }
      float Freq=0;
     for (Region r : FreqRegion){
-    int PixCount=r.pixs.size();  
-    if ((r.pixs.size() > 550)&&((r.pixs.size()<6500))) {
-      r.avgx = r.avgx / r.pixs.size();
-      r.avgy = r.avgy / r.pixs.size();
+      if ((r.pixs.size() > 550)&&((r.pixs.size()<6500))) {
       r.show(FreqtrackColor, cam);
-     
-     Freq=(((float)r.pixs.size()-(float)C3pix)/((float)C6pix-(float)C3pix))*(C6-C3)+C3;
-    
-    
-    
-    
-    
-    // println("length:"+ r.pixs.size()+ "Freq" + Freq);
-    /*
-    fill(FreqtrackColor);
-    strokeWeight(4.0);
-    stroke(0);
-    ellipse(r.avgx, r.avgy, 24, 24);
-    */
-
-}else{
-  Freq=0;
-}
+      Freq=(((float)r.pixs.size()-(float)C3pix)/((float)C6pix-(float)C3pix))*(C6-C3)+C3;
+      }
+      else{
+      Freq=0;
+      }
     }
 
     OscMessage myMessage2 = new OscMessage("/ciao");
     myMessage2.add(Freq);
     myMessage2.add(Vol);
     oscP5.send(myMessage2,myRemoteLocation);
-    println(Freq + "blblb" + Vol);
 
     //GAME OF LIFE PART
   
@@ -201,74 +169,11 @@ void mousePressed() {
   gol.init();
 }
 
-/*
-       void Display(ArrayList <Region> Reg, color tracked){
-   for (Region r : Reg){
-    if ((r.pixs.size() > 200)) {
-          r.avgx = r.avgx / r.pixs.size();
-    r.avgy = r.avgy / r.pixs.size();
-    r.show(tracked);
-    
-    fill(tracked);
-    strokeWeight(4.0);
-    stroke(0);
-    ellipse(r.avgx, r.avgy, 24, 24);
-     
-    }
-   }
-    }*/
-    
-
-  /*
-    for (Blob b : region2) {
-    if (b.size() > 10) {
-      b.show(trackColor2);
-    }
-  }*/
-//}
-
-  /*
-  OscMessage myMessage1 = new OscMessage("/count");
- 
-  myMessage1.add(count);
-
-  oscP5.send(myMessage1,myRemoteLocation);
-  println(count);
-  
-    OscMessage myMessage2 = new OscMessage("/locX");
- 
-  myMessage2.add(avgX);
-
-  oscP5.send(myMessage2,myRemoteLocation);
-  println(avgX);
-  
-  OscMessage myMessage3 = new OscMessage("/locY");
- 
-  myMessage3.add(avgY);
-
-  oscP5.send(myMessage3,myRemoteLocation);
-  println(avgY);
- */ 
-  /*
-   boolean Neighbour(float x, float y, float xprec, float yprec, float r1, float g1, float b1, float r, float g, float b) {
-     if((x==xprec+1)||(y==yprec+1)||(x==xprec-1)||(y==yprec-1)||((x==xprec)&&(y==yprec))){
-       if(distSq(r1, g1, b1, r, g, b) < threshold*threshold){
-       return true;
-     } 
-     }
-     else {
-      return false;
-    }
-}
-
-*/
 void Belong(int x, int y, ArrayList<Region> Reg){
         boolean found=false;
         for(Region r: Reg){
           if (r.isNear(x, y)) {
             r.add(x, y);
-            //one=true;
-            //println(b.count);
             found = true;
             break;
           }
@@ -276,8 +181,6 @@ void Belong(int x, int y, ArrayList<Region> Reg){
         if ((!found)) {
           Region r= new Region(x, y);
           Reg.add(r);
-          //b.count=0;
-          //println(count);
         }
       }
 float distSq(float x1, float y1, float x2, float y2) {

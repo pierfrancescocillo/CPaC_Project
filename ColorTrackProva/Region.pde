@@ -1,5 +1,4 @@
 class Region {
-  float avgx;
   float avgy;
   ArrayList<PVector> pixs;
 
@@ -16,10 +15,9 @@ class Region {
     }
     
   }
- // }
+
   void add(int x, int y) {
     pixs.add(new PVector(x, y));
-    avgx+=x;
     avgy+=y;
   }
 
@@ -28,13 +26,13 @@ class Region {
   boolean isNear(int x, int y) {
     float d = 10000000;
     for (PVector p : pixs) {
-        float tempD = distSq(x, y, p.x, p.y);
+        float tempD = dist(x, y, p.x, p.y);
       if (tempD < d) {
         d = tempD;
       }
     }
 
-    if (d < distThreshold*distThreshold) {
+    if (d < distThreshold) {
       return true;
     } else {
       return false;
