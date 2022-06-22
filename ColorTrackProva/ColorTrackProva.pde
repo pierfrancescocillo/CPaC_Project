@@ -10,9 +10,9 @@ Capture cam;
 
 color VoltrackColor; 
 color FreqtrackColor;
-float thresholdVol = 115;
+float thresholdVol = 110;
 float thresholdFreq = 175;
-float distThreshold = 5;
+float distThreshold = 50;
 float C3=130.81;
 float C6=1046.5;
 float MaxVol=1.0;
@@ -47,8 +47,8 @@ void setup() {
   cam= new Capture(this, cams[0]);*/
   cam=new Capture(this,width,height,30);
   cam.start();
-  VoltrackColor = color(50,205,50);
-  //VoltrackColor = color(0,0,255);
+  VoltrackColor = color(50,198,50);
+  //VoltrackColor = color(80,200,120);
  // FreqtrackColor=color(153,153,0);
  FreqtrackColor=color(0,0,255);
   oscP5= new OscP5(this,57120);
@@ -75,6 +75,7 @@ void captureEvent(Capture cam) {
 
 void draw() {
   //COLOR TRACK PART
+ // cam.read();
   background(200);
   cam.loadPixels();
   image(cam, 0, 0, width/2, height);
