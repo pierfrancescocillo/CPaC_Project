@@ -56,13 +56,13 @@ Starting from this point, we modified the ruleset as a function of the frequency
 
 These are the ruleset we chose to implement:
 
-*C: ```ruleset = {1,1,1,0,0,0,0,0,      1,0,1,0,0,0,0,0};```
-*D: ```ruleset = {0,0,1,0,0,0,0,0,      0,1,1,0,0,0,0,0};```
-*E: ```ruleset = {0,1,0,0,0,0,0,0,      0,0,0,0,0,0,0,0};```
-*F: ```ruleset = {0,1,1,1,0,0,0,0,      0,0,1,1,0,0,0,0};```
-*G: ```ruleset = {0,1,1,0,1,0,0,0,      0,0,1,0,1,0,0,0};```
-*A: ```ruleset = {0,1,1,0,0,1,0,0,      0,0,1,0,0,1,0,0};```
-*B: ```ruleset = {0,1,1,0,0,0,1,0,      0,0,1,0,0,0,1,0};```
+* C: ```ruleset = {1,1,1,0,0,0,0,0,      1,0,1,0,0,0,0,0};```
+* D: ```ruleset = {0,0,1,0,0,0,0,0,      0,1,1,0,0,0,0,0};```
+* E: ```ruleset = {0,1,0,0,0,0,0,0,      0,0,0,0,0,0,0,0};```
+* F: ```ruleset = {0,1,1,1,0,0,0,0,      0,0,1,1,0,0,0,0};```
+* G: ```ruleset = {0,1,1,0,1,0,0,0,      0,0,1,0,1,0,0,0};```
+* A: ```ruleset = {0,1,1,0,0,1,0,0,      0,0,1,0,0,1,0,0};```
+* B: ```ruleset = {0,1,1,0,0,0,1,0,      0,0,1,0,0,0,1,0};```
 
 So we defined a set of seven different ruleset, starting from the classical one seen above, chosing which one applyes in the current time instant based according to the corresponding interval to which the current frequency played belongs. We have done this, ça va sans dire, so that the user is able to create and experience different graphic patterns, changing depending on the melody he or she is playing.
 
