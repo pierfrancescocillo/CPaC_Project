@@ -36,19 +36,10 @@ int nota;
 void setup() {
   //COLOR TRACK PART
   size(1024, 600);
-  //fullScreen();
- /* String[] cams = Capture.list();
-  if(cams.length==0){
-    println("No cameras= (");
-    exit();}
-    println("Avaiable cameras:");
-    for(int i=0; i<cams.length;i++){
-      println(i, cams[i]);}
-  cam= new Capture(this, cams[0]);*/
-  cam=new Capture(this,width,height,30);
+  cam=new Capture(this,width/2,height,30);
   cam.start();
-  VoltrackColor = color(50,198,50);
-  //VoltrackColor = color(80,200,120);
+  VoltrackColor = color(30,198,50);
+ // VoltrackColor = color(153,153,0);
  // FreqtrackColor=color(153,153,0);
  FreqtrackColor=color(0,0,255);
   oscP5= new OscP5(this,57120);
@@ -75,7 +66,7 @@ void captureEvent(Capture cam) {
 
 void draw() {
   //COLOR TRACK PART
- // cam.read();
+//  cam.read();
   background(200);
   cam.loadPixels();
   image(cam, 0, 0, width/2, height);
@@ -114,7 +105,7 @@ one=false;
            r.avgy = r.avgy / r.pixs.size();
            r.show(VoltrackColor, cam);
            if((r.avgy>MaxVolPix)&&(r.avgy<=MinVolPix)){
-              Vol=(r.avgy-MinVolPix)/(MaxVolPix-MinVolPix)*(MaxVol-MinVol)+MinVol;
+           Vol=map(r.avgy, MinVolPix, MaxVolPix, MinVol, MaxVol);
            }
            else {
            Vol=0;
@@ -125,7 +116,8 @@ one=false;
     for (Region r : FreqRegion){
       if ((r.pixs.size() > 550)&&((r.pixs.size()<6500))) {
       r.show(FreqtrackColor, cam);
-      Freq=(((float)r.pixs.size()-(float)C3pix)/((float)C6pix-(float)C3pix))*(C6-C3)+C3;
+ //   Freq=(((float)r.pixs.size()-(float)C3pix)/((float)C6pix-(float)C3pix))*(C6-C3)+C3;
+      Freq=map(r.pixs.size(), (float)C3pix, (float)C6pix, C3, C6);
       }
       else{
       Freq=0;
@@ -184,12 +176,3 @@ void Belong(int x, int y, ArrayList<Region> Reg){
           Reg.add(r);
         }
       }
-float distSq(float x1, float y1, float x2, float y2) {
-  float d = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-  return d;
-}
-
-float distSq(float x1, float y1, float z1, float x2, float y2, float z2) {
-  float d = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) +(z2-z1)*(z2-z1);
-  return d;
-}
