@@ -1,9 +1,9 @@
 # Interactive Theremin controlling a Game of Life
  
-As a project for the Creative Computing and Programming course we develope a Theremin, based on color tracking, and the Game of life, whose patterns are controlled by the frequency and volume parameters of the Theremin.
+As a project for the Creative Computing and Programming course we developed a Theremin, based on color tracking, and the Game of life, whose patterns are controlled by the frequency and volume parameters of the Theremin.
 
 ## Setup and Design
-In our application the screen is splitted in two: the left side recive input from the user camera while the right side implements the patterns generated in the Game of Life.
+In our application the screen is splitted in two: the left side recives inputs from the user camera while the right side implements the Game of Life.
 The color tracking and the Game of Life algorithms are implemented in Processing, while we take advantage of Supercollider to convert the inputs percived from the user camera in sound.
 
 ## Color Tracking
@@ -23,4 +23,16 @@ The specific parameter that controls the frequency is the number of pixels belon
 Both of this parameters are mapped in a specific Volume or Frequency, and sent using a OSC message to Supercollider.
 In particular, the frequency is mapped in a value between 130.81 (Frequency of a C3) and 1046.5 (Frequency of a C6), while the Volume is mapped in 0-1.
 
+##Game of life
+The classical Game of Life is a 2D grid cellular automata, in which each cell is "alive" or "dead" depending on the state of it's neighbors.
+Being a 2D gird, each cell has 8 neighbors that can be dead or alive, as itself, so there are 512 possible neighbourhoods situations. Nevertheless, the situation becomes interesting when we base the behavior of each cell on the number of death and alive neighbors it has.
+Typically, when a cell is alive, it can die in two ways:
+* Overpopulation: if the cell has three or more neighbors
+* Loneliness: if it has one or no neighbors
 
+Instead, if it is dead, it can come to life if it has exactly three neighbors. In all the other cases, it will preserve it's current status.
+This ruleset governing the Game of Life can be summarized with the following line of code:
+
+'''
+  ruleset = {0,1,1,0,0,0,0,0,      0,0,1,0,0,0,0,0};
+'''
