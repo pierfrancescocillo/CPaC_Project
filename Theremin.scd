@@ -24,5 +24,3 @@ OSCdef(\ciao,{
 n = NetAddr("127.0.0.1",57120);
 
 ~synth=Synth(\theremin);
-
-n.sendMsg('/ciao',0, 0.8);
