@@ -52,4 +52,11 @@ Starting from this point, we modified the ruleset as a function of the frequency
 
 So we defined a set of seven different ruleset, starting from the classical one seen above, chosing which one applyes in the current time instant based according to the corresponding interval to which the current frequency played belongs. We have done this, ça va sans dire, so that the user is able to create and experience different graphic patterns, changing depending on the melody he or she is playing.
 
-Furthermore
+Furthermore, taking inspiration from the Cycle 2D Grid algorithm, we did not consider only "dead" or "alive" status for the cells, but also intermediate states of live. Or, maybe, it would be better to call them *states of death*. As a matter of fact, when the cell dies it does not fade immediately, but it's color changes based on the number of frame that have passed from when it was alive, until eventually it vanishes completely. 
+
+To do so, we mapped the number of frames that have passed into an range between two colors: the "starting" color, when the cell is alive, and the "final" color, when the cell is almost vanished. 
+
+We want to highlight the fact that those two colors are not always the same, but they change based on the volume of the theremin, controlled by the user.
+We, infact, subdivided the volume interval into a set of five intermediate ranges equally spaced, and assigned to each range a starting and final color.
+
+Summarizing, we designed our Game of Life so that the user will control the graphical pattern on the screen controlling the frequency, and the colors controlling the volume.
