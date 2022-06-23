@@ -67,9 +67,12 @@ This ruleset governing the Game of Life can be summarized with the following lin
 ```
   ruleset = {0,1,1,0,0,0,0,0,      0,0,1,0,0,0,0,0};
 ```
+where the value 1 states if a cell is alive, 0 if it is dead.
 One of the first eight walues will be the next status of the cell if is alive (the first if it has one neighbor, the second if it has two, ecc...), and one of the other eight will apply if it is dead.
 
 Starting from this point, we modified the ruleset as a function of the frequency. For each octave, the frequency is mapped in one of seven possible intervals, each one of them arbitrarily centered around each note of the major diatonic scale in the key of C.
+
+So we defined a set of seven different ruleset, starting from the classical one seen above, chosing which one applyes in the current time instant based according to the corresponding interval to which the current frequency played belongs. We have done this, ça va sans dire, so that the user is able to create and experience different graphic patterns, changing depending on the melody he or she is playing.
 
 These are the ruleset we chose to implement:
 
@@ -81,7 +84,7 @@ These are the ruleset we chose to implement:
 * A: ```ruleset = {0,1,1,0,0,1,0,0,      0,0,1,0,0,1,0,0};```
 * B: ```ruleset = {0,1,1,0,0,0,1,0,      0,0,1,0,0,0,1,0};```
 
-So we defined a set of seven different ruleset, starting from the classical one seen above, chosing which one applyes in the current time instant based according to the corresponding interval to which the current frequency played belongs. We have done this, ça va sans dire, so that the user is able to create and experience different graphic patterns, changing depending on the melody he or she is playing.
+It is possible to see that some ruleset tend to overcrowd the seen, some of them tend to empty it, while some other produce a more stable situation. This choice has made so that, following the variations of the playing melody, the scene generated could be as much diversified as possible.
 
 Furthermore, taking inspiration from the Cycle 2D Grid algorithm, we did not consider only "dead" or "alive" status for the cells, but also intermediate states of live. Or, maybe, it would be better to call them *states of death*. As a matter of fact, when the cell dies it does not fade immediately, but it's color changes based on the number of frame that have passed from when it was alive, until eventually it vanishes completely. 
 
