@@ -69,7 +69,7 @@ This ruleset governing the Game of Life can be summarized with the following lin
 ```
 One of the first eight walues will be the next status of the cell if is alive (the first if it has one neighbor, the second if it has two, ecc...), and one of the other eight will apply if it is dead.
 
-Starting from this point, we modified the ruleset as a function of the frequency. For each octave, the frequency is mapped in one of seven possible intervals, each one of them arbitrarily centered around one each note of the major diatonic scale in the key of C.
+Starting from this point, we modified the ruleset as a function of the frequency. For each octave, the frequency is mapped in one of seven possible intervals, each one of them arbitrarily centered around each note of the major diatonic scale in the key of C.
 
 These are the ruleset we chose to implement:
 
