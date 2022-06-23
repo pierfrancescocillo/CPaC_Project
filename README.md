@@ -91,6 +91,6 @@ Furthermore, taking inspiration from the Cycle 2D Grid algorithm, we did not con
 To do so, we mapped the number of frames that have passed into an range between two colors: the "starting" color, when the cell is alive, and the "final" color, when the cell is almost vanished. 
 
 We want to highlight the fact that those two colors are not always the same, but they change based on the volume of the theremin, controlled by the user.
-We, infact, subdivided the volume interval into a set of five intermediate ranges equally spaced, and assigned to each range a starting and final color.
+We, infact, subdivided the volume interval into a set of five intermediate ranges equally spaced, and assigned to each range a starting and a final color.
 
 Summarizing, we designed our Game of Life so that the user will control the graphical pattern on the screen controlling the frequency, and the colors controlling the volume.
