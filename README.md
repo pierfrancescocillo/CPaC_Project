@@ -10,7 +10,7 @@ After choosing the objects, the user must set the frequency and volume colors pa
 
 The user can also decide a threashold for the two colors (changing the thresholdVol and thresholdFreq variables), in order to properly adjust the tracking done by the algorithm. For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
 
-To start to play, we suggest to first run supercollider and then processing.
+To start to play, we suggest to first run the supercollider script and then processing one.
 
 ## Design
 In our application the screen is splitted in two: the left side recives inputs from the user camera while the right side implements the Game of Life.
@@ -34,6 +34,23 @@ The specific parameter that controls the frequency is the number of pixels belon
 
 Both of this parameters are mapped in a specific Volume or Frequency, and sent using a OSC message to Supercollider.
 In particular, the frequency is mapped in a value between 130.81 (Frequency of a C3) and 1046.5 (Frequency of a C6), allowing the theremin to cover three octaves, while the Volume is mapped in 0-1.
+
+### Sound Synthesis
+
+To synthesize the sound of the theremin, we implemented a trivial syntheziser using Supercollider. It is based simply on a sinusoidal oscillator moduled by an ASR envelope. The frequency parameter of the oscillator is controlled by an OSC message, receved directly from the main Processing algorithm. As for the frequency, also the amplitude of the envelope is controlled in the ssame way with another OSC message.
+Here follows the definition of the synth:
+```
+SynthDef(\theremin, {
+  arg atk=0.01,rel=0.1,crv= -3;
+  var freq, synth, vol, amp,env;
+  freq = \freq.kr(440,1.1);
+  amp = \amp.kr(0,1.1);
+  env = EnvGen.ar(Env.asr(atk,1,rel,crv),1);
+  synth = SinOsc.ar(freq);
+  if(freq!=0,{Out.ar(0,synth*env*amp)},{Out.ar(0,0)});
+}
+```
+
 
 ### Game of life
 The classical Game of Life is a 2D grid cellular automata, in which each cell is "alive" or "dead" depending on the state of it's neighbors.
