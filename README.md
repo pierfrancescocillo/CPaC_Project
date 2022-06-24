@@ -8,9 +8,13 @@ To use our interactive theremin the user must choose two physical, different-col
 
 After choosing the objects, the user must set the frequency and volume colors parameters (defined in our program as FreqtrackColor and VoltrackColor) in order to, more or less, match the colors of the two physical objects that he wants to use. The two colors must be different from one another in order to properly control the Theremin. 
 
-The user can also decide a threashold for the two colors (changing the thresholdVol and thresholdFreq variables), in order to properly adjust the tracking done by the algorithm. For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
+The user can also decide a threshold for the two colors (changing the thresholdVol and thresholdFreq variables), in order to properly adjust the tracking done by the algorithm. These thresholds can also be changed during the execiution of the program by using certain keys (key "w" to increase the thresholdFreq, key "s" to decrease it, key "e" to increase the thresholdVol, key "d" to decrease it).
+
+For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
 
 To start to play, we suggest to first run the supercollider script and then processing one.
+
+We also reccomend to play the application using a background as neutral as possibile (in order to avoid interference with the color tracking) and also to avoid natural light in the view of the camera, that can distort processing perception of the colors.
 
 ## Design
 In our application the screen is splitted in two: the left side recives inputs from the user camera while the right side implements the Game of Life.
@@ -30,7 +34,7 @@ Every time a new pixel of a particular color is tracked, the algorithm takes the
 ### Frequency and Volume Mapping
 In our application the frequency of the instruement changes if we get close or far to the camera with the frequency- controlling physical object, while the volume changes depending on the vertical position of the Volume-controlling physical object.
 
-The specific parameter that controls the frequency is the number of pixels beloning to the region (because more pixels means we are closer to the camera and viceversa), while the parameter that controls the Volume is the vertical (y position) of the center of the region (at the y=0 position of the canvas we will have no sound).
+The specific parameter that controls the frequency is the number of pixels beloning to the region (because more pixels means we are closer to the camera and viceversa), while the parameter that controls the Volume is the vertical (y position) of the central pixel of the region (at the bottom of the camera we will have no sound).
 
 Both of this parameters are mapped in a specific Volume or Frequency, and sent using a OSC message to Supercollider.
 In particular, the frequency is mapped in a value between 130.81 (Frequency of a C3) and 1046.5 (Frequency of a C6), allowing the theremin to cover three octaves, while the Volume is mapped in 0-1.
