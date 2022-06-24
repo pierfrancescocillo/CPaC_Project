@@ -8,7 +8,7 @@ To use our interactive theremin the user must choose two physical, different-col
 
 After choosing the objects, the user must set the frequency and volume colors parameters (defined in our program as FreqtrackColor and VoltrackColor) in order to, more or less, match the colors of the two physical objects that he wants to use. The two colors must be different from one another in order to properly control the Theremin. 
 
-The user can also decide a threshold for the two colors (changing the thresholdVol and thresholdFreq variables), in order to properly adjust the tracking done by the algorithm. These thresholds can also be changed during the execiution of the program by using certain keys (key "w" to increase the thresholdFreq, key "s" to decrease it, key "e" to increase the thresholdVol, key "d" to decrease it).
+The user can also decide a threshold for the two colors (changing the thresholdVol and thresholdFreq variables), in order to properly adjust the tracking done by the algorithm. These thresholds can also be changed during the execution of the program by using certain keys (key "w" to increase the thresholdFreq, key "s" to decrease it, key "e" to increase the thresholdVol, key "d" to decrease it).
 
 For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
 
