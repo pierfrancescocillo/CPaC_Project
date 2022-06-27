@@ -1,5 +1,5 @@
 # Psychedelic Theremin
-##Interactive Theremin controlling a Game of Life
+## Interactive Theremin controlling a Game of Life
  
 As a project for the Creative Computing and Programming course we developed a Theremin, based on color tracking, and the Game of life, whose patterns are controlled by the frequency and volume parameters of the Theremin.
 
