@@ -13,7 +13,7 @@ The user can also decide a threshold for the two colors (changing the thresholdV
 
 For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
 
-To start to play, we suggest to first run the supercollider script and then processing one.
+To start to play, we suggest to first run the supercollider script (Theremin) and then processing one (ColorTrackGol_final).
 
 We also reccomend to play the application using a background as neutral as possibile (in order to avoid interference with the color tracking) and also to avoid natural light in the view of the camera, that can distort processing perception of the colors.
 
@@ -27,7 +27,7 @@ For both of the colors, the algorithm will scan every pixel of the camera and de
 
 This tecnique is then improved by using the blob detection method: the algorithm not only determined if a pixel's color is close to the one assigned to the Volume or Frequency parameter, but also determine if the pixel belong to a specific region of close pixels of the same color. 
 
-That's the use of the arrays of objects VolRegion and FreqRegion: every element of these arrays is an object of class region, and every object of class region is composed by an array of coordinates of pixels (represented by PVectors), and an int value.
+That's the use of the arrays of objects VolRegion and FreqRegion: every element of these arrays is an object of class region, and every object of class region is composed by an array of coordinates of pixels (represented by PVectors), and a float value.
 
 Every time a new pixel of a particular color is tracked, the algorithm takes the array of objects for that specific color, takes the first region of this array and compute the distance between every pixel of this region and the current tracked pixel. If, for at least one pixel belonging to the region, this distance is less then a certain threashold, called distThreshold, then the pixel belong to that region. Otherwise we take the following region in the array of objects and repeat the procedure. If no region is found for a specific pixel (that means that the pixel is not enough close to any region in order to assign it to that region), a new region is created. This is implemented because, to evaluate the Volume and Frequency parameters, only regions with a certain amount of pixels will be taken into account, in order to avoid the tracking of small-background region whose pixels color match a tracked color. But due to the fact that this only works for regions with less than 550 pixels in our algorithm, is still preferable to choose neutral background while playing.
 
