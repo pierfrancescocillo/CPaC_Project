@@ -13,7 +13,7 @@ The user can also decide a threshold for the two colors (changing the thresholdV
 
 For controlling the Volume, the physical-colored object matching the VoltrackColor must be moved in vertical direction, up and down. For controlling the Frequency, the physical-colored object matching the FreqtrackColor must be moved near and far from the camera.
 
-To start to play, we suggest to first run the supercollider ("Theremin") script and then processing one(ColorTrackGol_final).
+To start to play, we suggest to first run the supercollider script (Theremin) and then processing one (ColorTrackGol_final).
 
 We also reccomend to play the application using a background as neutral as possibile (in order to avoid interference with the color tracking) and also to avoid natural light in the view of the camera, that can distort processing perception of the colors.
 
